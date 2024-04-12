@@ -27,3 +27,20 @@ export const deployCommandsSingleServer = async ({ guildId }: DeployCommandsProp
         console.error(error);
     }
 }
+
+export const deployGlobalCommands = async () => {
+    try {
+        console.log("Started adding application (/) commands.");
+
+        await rest.put(
+            Routes.applicationCommands(envConstants.discordClientId),
+            {
+                body: commandsData,
+            }
+        );
+
+        console.log("Successfully reloaded application (/) commands.");
+    } catch (error) {
+        console.error(error);
+    }
+}

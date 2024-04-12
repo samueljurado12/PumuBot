@@ -3,5 +3,5 @@ import { CommandInteraction, InteractionResponse, SlashCommandBuilder, SlashComm
 export interface Command {
     data: Omit<SlashCommandBuilder, "addSubcommandGroup" | "addSubcommand">
     | SlashCommandSubcommandsOnlyBuilder;
-    execute: (interaction: CommandInteraction) => Promise<InteractionResponse<boolean>>
+    execute: (interaction: CommandInteraction) => Promise<void>
 }
