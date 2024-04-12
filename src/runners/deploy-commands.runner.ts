@@ -1,9 +1,8 @@
+import { discordClient } from '#core/clients/discord-client.js';
 import '#core/load-env.js';
-import { deployCommandsAllServers } from "#helpers"
-import { config } from "dotenv";
+import { deployCommandsSingleServer } from '#helpers';
 
 
 (async () => {
-    config()
-    await deployCommandsAllServers();
+    discordClient.guilds.cache.forEach(g => deployCommandsSingleServer({ guildId: g.id }))
 })()
