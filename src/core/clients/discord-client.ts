@@ -1,5 +1,5 @@
 import { Client } from "discord.js";
 
 export const discordClient = new Client({
-    intents: ["Guilds", "GuildMessages", "DirectMessages", "GuildScheduledEvents"]
+    intents: ["Guilds", "GuildMessages", "GuildScheduledEvents"]
 })
