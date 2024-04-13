@@ -1,4 +1,6 @@
 export const commandNames = {
     pingCommandName: "ping",
-    setChannelCommandName: "channel"
+    setChannelCommandName: "channel",
+    setRoleCommandName: "role",
+    setConfigCommandName: "config"
 }
