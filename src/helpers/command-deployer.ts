@@ -1,11 +1,10 @@
-import { REST, Routes } from "discord.js";
+import { Routes } from "discord.js";
 
 import { commands } from "#commands";
 import { envConstants } from "#core/constants";
+import { discordRestClient } from "#core/clients/discord-rest.client.js";
 
 const commandsData = Object.values(commands).map((command) => command.data.toJSON());
-
-const rest = new REST({ version: "10" }).setToken(envConstants.discordToken);
 
 type DeployCommandsProps = {
     guildId: string;
@@ -15,7 +14,7 @@ export const deployCommandsSingleServer = async ({ guildId }: DeployCommandsProp
     try {
         console.log("Started adding application (/) commands.");
 
-        await rest.put(
+        await discordRestClient.put(
             Routes.applicationGuildCommands(envConstants.discordClientId, guildId),
             {
                 body: commandsData,
@@ -32,7 +31,7 @@ export const deployGlobalCommands = async () => {
     try {
         console.log("Started adding application (/) commands.");
 
-        await rest.put(
+        await discordRestClient.put(
             Routes.applicationCommands(envConstants.discordClientId),
             {
                 body: commandsData,
