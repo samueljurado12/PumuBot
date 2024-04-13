@@ -46,5 +46,18 @@ export const deployGlobalCommands = async () => {
 }
 
 export const deleteAllGlobalCommands = async () => {
-    discordClient.application.commands.set([])
+    try {
+        console.log("Deleting all application (/) commands.");
+
+        await discordRestClient.put(
+            Routes.applicationCommands(envConstants.discordClientId),
+            {
+                body: [],
+            }
+        );
+
+        console.log("Successfully deleted application (/) commands.");
+    } catch (error) {
+        console.error(error);
+    }
 }

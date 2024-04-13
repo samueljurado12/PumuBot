@@ -4,6 +4,6 @@ import { deleteAllGlobalCommands, deployCommandsSingleServer } from '#helpers';
 
 
 (async () => {
-    deleteAllGlobalCommands
+    deleteAllGlobalCommands();
     deployCommandsSingleServer({ guildId: envConstants.devServerId })
 })()
