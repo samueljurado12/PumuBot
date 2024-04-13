@@ -12,5 +12,6 @@ const getDiscordConstants = () => {
 
 export const envConstants = {
     isMockDb: process.env.MOCK_CONFIG === "True",
+    devServerId: process.env.DEV_SERVER_ID,
     ...getDiscordConstants()
 }
