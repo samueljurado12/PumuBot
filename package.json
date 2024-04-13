@@ -8,7 +8,8 @@
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
     "build": "tsup src/index.ts --minify",
-    "deploy-commands": "tsx src/runners/deploy-commands.runner.ts"
+    "deploy-global-commands": "tsx src/runners/deploy-commands.runner.ts",
+    "deploy-dev-commands": "tsx src/runners/deploy-dev-commands.runner.ts"
   },
   "imports": {
     "#core/*": "./src/core/*"

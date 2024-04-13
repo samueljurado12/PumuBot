@@ -3,6 +3,7 @@ import { Routes } from "discord.js";
 import { commands } from "#commands";
 import { envConstants } from "#core/constants";
 import { discordRestClient } from "#core/clients/discord-rest.client.js";
+import { discordClient } from "#core/clients/discord.client.js";
 
 const commandsData = Object.values(commands).map((command) => command.data.toJSON());
 
@@ -42,4 +43,8 @@ export const deployGlobalCommands = async () => {
     } catch (error) {
         console.error(error);
     }
+}
+
+export const deleteAllGlobalCommands = async () => {
+    discordClient.application.commands.set([])
 }
