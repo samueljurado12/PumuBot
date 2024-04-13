@@ -11,7 +11,6 @@ export const setRoleCommand: Command = {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     execute: async (interaction: CommandInteraction<CacheType>) => {
-        interaction.deferReply();
         const role = interaction.options.get("role").role;
         const { guildId } = interaction
 
