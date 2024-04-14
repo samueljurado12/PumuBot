@@ -11,7 +11,7 @@ env:
   my_token: ${{secrets.GITHUB_TOKEN}}
 
 jobs:
-  get-code:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
