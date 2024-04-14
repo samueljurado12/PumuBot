@@ -12,10 +12,11 @@ export const setRoleCommand: Command = {
 
     execute: async (interaction: CommandInteraction<CacheType>) => {
         const role = interaction.options.get("role").role;
-        const { guildId } = interaction
+        const { guildId } = interaction;
+        const content = `Notification role updated to ${role?.name}.`;
 
-        await serverConfigRepository.saveServerConfig(guildId, null, role.id)
+        await serverConfigRepository.saveServerConfig(guildId, null, role.id);
 
-        interaction.reply(`Notification role updated to ${role?.name}!`)
+        interaction.reply({ content, ephemeral: true });
     }
 }

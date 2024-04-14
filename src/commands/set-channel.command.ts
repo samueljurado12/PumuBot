@@ -11,11 +11,12 @@ export const setChannelCommand: Command = {
 
 
     execute: async (interaction: CommandInteraction) => {
-        const channel = interaction.options.data.find(opt => opt.name === "channel")?.channel
-        const { guildId } = interaction
+        const channel = interaction.options.get("channel")?.channel;
+        const { guildId } = interaction;
+        const content = `Channel for notifications updated to ${channel?.name}`
 
         serverConfigRepository.saveServerConfig(guildId, channel.id);
 
-        interaction.reply(`Channel for notifications updated to ${channel?.name}`)
+        interaction.reply({ content, ephemeral: true });
     }
 }

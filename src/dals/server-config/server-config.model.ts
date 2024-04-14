@@ -1,5 +1,5 @@
 export interface ServerConfig {
     serverId: string;
-    notificationChannelId: string;
-    notificationRoleId: string;
+    notificationChannelId?: string;
+    notificationRoleId?: string;
 }
