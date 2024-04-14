@@ -1,4 +1,6 @@
 version: '3.8'
+
+name: pumubot
 services:
   pumubot-db:
     container_name: pumubot-db
@@ -9,5 +11,10 @@ services:
       - type: bind
         source: ./mongo-data
         target: /data/db
+  pumubot-bot:
+    container_name: pumubot-bot
+    image: pumubot
+    env_file:
+      - ../.env
 volumes:
   mongo-data:

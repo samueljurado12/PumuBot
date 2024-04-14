@@ -4,9 +4,11 @@
   "description": "Simple discord bot for managing interactions and notifications in my own server",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-build:build-package": "docker build -t pumubot .",
+    "test-build:create-container": "docker compose -f ./docker-compose/build-test.docker-compose.yml up -d",
+    "start:test-build": "run-s test-build:build-package test-build:create-container",
     "start:dev": "tsx watch src/index.ts",
-    "start:local-db": "docker compose up -d",
+    "start:local-db": "docker compose -f ./docker-compose/dev.docker-compose.yml up -d",
     "start": "run-p -l start:dev start:local-db",
     "run": "node dist/index.js",
     "build": "tsup src/index.ts --minify",
