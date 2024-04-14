@@ -1,5 +1,7 @@
 name: Pumubot CI
 on:
+  push:
+    branches: ["**"]
   pull_request:
     branches:
       - "main"
@@ -14,7 +16,7 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
-      - name: Use Node.js
+      - name: Build and Test (NodeJS)
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
