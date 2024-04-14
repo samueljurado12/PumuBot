@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  pumubot-db-local:
+    container_name: pumubot-db-local
+    image: mongo
+    ports: 
+      - "27017:27017"
+    volumes:
+      - type: bind
+        source: ./mongo-data
+        target: /data/db
+volumes:
+  mongo-data:
