@@ -6,6 +6,7 @@ import { serverConfigRepository } from "#dals/server-config/repositories";
 export const setConfigCommand: Command = {
     data: new SlashCommandBuilder()
         .setName(commandNames.setConfigCommandName)
+        .setDescription("Creates and updates the configuration for the notification of scheduled events")
         .addChannelOption((option) => option.setName("channel").setDescription("New channel for notifications").setRequired(true).addChannelTypes(ChannelType.GuildText))
         .addRoleOption((role) => role.setRequired(true).setName("role").setDescription("New notification role that will be pinged when an event is created."))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),

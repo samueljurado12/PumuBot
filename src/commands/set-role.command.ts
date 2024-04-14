@@ -1,4 +1,4 @@
-import { CommandInteraction, CacheType, SlashCommandBuilder, PermissionFlagsBits } from "discord.js";
+import { CommandInteraction, CacheType, SlashCommandBuilder, PermissionFlagsBits, CategoryChannel } from "discord.js";
 import { Command } from "./command";
 import { commandNames } from "#core/constants/command-names.js";
 import { serverConfigRepository } from "#dals/server-config/repositories";
@@ -11,12 +11,18 @@ export const setRoleCommand: Command = {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     execute: async (interaction: CommandInteraction<CacheType>) => {
-        const role = interaction.options.get("role").role;
-        const { guildId } = interaction;
-        const content = `Notification role updated to ${role?.name}.`;
+        let content;
+        try {
+            const role = interaction.options.get("role").role;
+            const { guildId } = interaction;
+            content = `Notification role updated to ${role?.name}.`;
 
-        await serverConfigRepository.saveServerConfig(guildId, null, role.id);
+            await serverConfigRepository.saveServerConfig(guildId, null, role.id);
 
-        interaction.reply({ content, ephemeral: true });
+        } catch (error) {
+            content = "There was an error updating the role, make sure you've used /config first."
+        } finally {
+            interaction.reply({ content, ephemeral: true });
+        }
     }
 }

@@ -11,12 +11,18 @@ export const setChannelCommand: Command = {
 
 
     execute: async (interaction: CommandInteraction) => {
-        const channel = interaction.options.get("channel")?.channel;
-        const { guildId } = interaction;
-        const content = `Channel for notifications updated to ${channel?.name}`
+        let content;
+        try {
+            const channel = interaction.options.get("channel")?.channel;
+            const { guildId } = interaction;
+            content = `Channel for notifications updated to #${channel?.name}`
 
-        serverConfigRepository.saveServerConfig(guildId, channel.id);
+            serverConfigRepository.saveServerConfig(guildId, channel.id);
+        } catch (error) {
+            content = "There was an error updating the channel, make sure you've user /config first"
+        } finally {
+            interaction.reply({ content, ephemeral: true });
+        }
 
-        interaction.reply({ content, ephemeral: true });
     }
 }
