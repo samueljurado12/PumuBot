@@ -128,3 +128,6 @@ dist
 
 # Mongo local stuff
 mongo-data/
+
+# VSCode
+.vscode/
