@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: 'Build docker image'
-    uses: ./.github/workflows/build-docker-image.yml@main
+    uses: ./.github/workflows/build-docker-image.yml
   deploy:
     needs: build
     runs-on: ubuntu-latest
