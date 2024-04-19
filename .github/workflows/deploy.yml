@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Copy prod.docker-compose.yml to remote server
-        run: scp ./docker-compose/prod.docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WORK_DIR }}/docker.compose.yml
+        run: scp ./docker-compose/prod.docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WORK_DIR }}/docker-compose.yml
 
       - name: Connect and pull
         run: |
