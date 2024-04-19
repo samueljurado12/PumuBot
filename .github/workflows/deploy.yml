@@ -33,4 +33,6 @@ jobs:
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }};
           docker compose pull && 
 
-          docker compose run pumubot -e DISCORD_TOKEN=${{secrets.DISCORD_TOKEN}} DISCORD_CLIENT_ID=${{vars.DISCORD_CLIENT_ID}} MOCK_CONFIG=${{vars.MOCK_CONFIG}} DEV_SERVER_ID=${{vars.DEV_SERVER_ID}} MONGO_DB_URI=${{secrets.MONGO_DB_URI}}"
+          docker compose run pumubot-db &&
+          
+          docker compose run pumubot-bot -e DISCORD_TOKEN=${{secrets.DISCORD_TOKEN}} DISCORD_CLIENT_ID=${{vars.DISCORD_CLIENT_ID}} MOCK_CONFIG=${{vars.MOCK_CONFIG}} DEV_SERVER_ID=${{vars.DEV_SERVER_ID}} MONGO_DB_URI=${{secrets.MONGO_DB_URI}}"
