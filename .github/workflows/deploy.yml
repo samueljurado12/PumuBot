@@ -33,4 +33,9 @@ jobs:
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }};
           docker compose pull && 
 
-          DISCORD_TOKEN=${{secrets.DISCORD_TOKEN}} DISCORD_CLIENT_ID=${{vars.DISCORD_CLIENT_ID}} MOCK_CONFIG=${{vars.MOCK_CONFIG}} DEV_SERVER_ID=${{vars.DEV_SERVER_ID}} MONGO_DB_URI=${{secrets.MONGO_DB_URI}} docker compose up -d"
+          DISCORD_TOKEN=${{secrets.DISCORD_TOKEN}} 
+          DISCORD_CLIENT_ID=${{vars.DISCORD_CLIENT_ID}} 
+          MOCK_CONFIG=${{vars.MOCK_CONFIG}} 
+          DEV_SERVER_ID=${{vars.DEV_SERVER_ID}} 
+          MONGO_DB_URI=${{secrets.MONGO_DB_URI}} 
+          docker compose up -d"
