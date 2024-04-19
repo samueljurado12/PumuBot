@@ -13,14 +13,29 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment: ${{inputs.environment}}
+    environment: ${{ inputs.environment }}
     steps:
       - name: install ssh keys
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+
+      - name: Checkout code to copy docker compose
+        uses: actions/checkout@v4
+
+      - name: Copy prod.docker-compose.yml to remote server
+        run: scp ./docker-compose/prod.docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.WORK_DIR }}/docker.compose.yml
+
       - name: Connect and pull
         run: |
+          
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }};
-          docker compose pull && docker compose up -d"
+          docker compose pull && 
+
+          DISCORD_TOKEN=${{secrets.DISCORD_TOKEN}}
+          DISCORD_CLIENT_ID=${{env.DISCORD_CLIENT_ID}}
+          MOCK_CONFIG=${{env.MOCK_CONFIG}}
+          DEV_SERVER_ID=${{env.DEV_SERVER_ID}}
+          MONGO_DB_URI=${{secrets.MONGO_DB_URI}}
+          docker compose up -d"
