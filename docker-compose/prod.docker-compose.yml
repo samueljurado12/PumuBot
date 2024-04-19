@@ -1,0 +1,29 @@
+version: "3.8"
+
+name: pumubot
+services:
+  pumubot-db:
+    container_name: pumubot-db
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - type: bind
+        source: ./mongo-data
+        target: /data/db
+    networks: [traefiknet]
+  pumubot-bot:
+    container_name: pumubot-bot
+    environment:
+      - DISCORD_TOKEN=$DISCORD_TOKEN
+      - DISCORD_CLIENT_ID=$DISCORD_CLIENT_ID
+      - MOCK_CONFIG=$MOCK_CONFIG
+      - DEV_SERVER_ID=$DEV_SERVER_ID
+      - MONGO_DB_URI=$MONGO_DB_URI
+    image: ghcr.io/samueljurado12/pumubot:main
+    networks: [traefiknet]
+volumes:
+  mongo-data:
+networks:
+  traefiknet:
+    external: true
