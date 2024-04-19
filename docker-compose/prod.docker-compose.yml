@@ -14,6 +14,12 @@ services:
     networks: [traefiknet]
   pumubot-bot:
     container_name: pumubot-bot
+    environment:
+      - DISCORD_TOKEN=$DISCORD_TOKEN
+      - DISCORD_CLIENT_ID=$DISCORD_CLIENT_ID
+      - MOCK_CONFIG=$MOCK_CONFIG
+      - DEV_SERVER_ID=$DEV_SERVER_ID
+      - MONGO_DB_URI=$MONGO_DB_URI
     image: ghcr.io/samueljurado12/pumubot:main
     networks: [traefiknet]
 volumes:
