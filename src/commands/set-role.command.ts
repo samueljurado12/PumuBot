@@ -2,6 +2,13 @@ import { CommandInteraction, CacheType, SlashCommandBuilder, PermissionFlagsBits
 import { Command } from "./command";
 import { commandNames } from "#core/constants/command-names.js";
 import { serverConfigRepository } from "#dals/server-config/repositories";
+import { checkRoleCanBeMentioned } from "#common/validations";
+
+const validateParams = (member, role) => {
+    const errorMessage = checkRoleCanBeMentioned(member, role);
+
+    if(errorMessage) throw new Error(errorMessage);
+}
 
 export const setRoleCommand: Command = {
     data: new SlashCommandBuilder()
@@ -13,14 +20,17 @@ export const setRoleCommand: Command = {
     execute: async (interaction: CommandInteraction<CacheType>) => {
         let content;
         try {
+            const client = interaction.guild.members.me;
             const role = interaction.options.get("role").role;
+            validateParams(client, role);
+
+
             const { guildId } = interaction;
-            content = `Notification role updated to ${role?.name}.`;
 
             await serverConfigRepository.saveServerConfig(guildId, null, role.id);
-
+            content = `Notification role updated to ${role?.name}.`;
         } catch (error) {
-            content = "There was an error updating the role, make sure you've used /config first."
+            content = error.message;
         } finally {
             interaction.reply({ content, ephemeral: true });
         }
