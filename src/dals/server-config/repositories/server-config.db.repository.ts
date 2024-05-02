@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { serverConfigContext } from "../server-config.context";
 import { ServerConfig } from "../server-config.model";
 import { ServerConfigRepository } from "./server-config.repository";
@@ -14,6 +13,8 @@ export const serverConfigDBRepository: ServerConfigRepository = {
         serverConfig.notificationChannelId = channelId ?? serverConfig.notificationChannelId;
         serverConfig.notificationRoleId = roleId ?? serverConfig.notificationRoleId;
 
+        if(!(serverConfig.notificationChannelId && serverConfig.notificationRoleId)) throw new Error("This server has no config setup. Please, make sure to use /config first.")
+
         const updatedServerConfig = await serverConfigContext.findOneAndUpdate(
             {
                 serverId
@@ -27,7 +28,7 @@ export const serverConfigDBRepository: ServerConfigRepository = {
     },
 
     deleteServerConfig: async (serverId: string) => {
-        const deletedRecords = await serverConfigContext.deleteMany({serverId}).lean()
+        const deletedRecords = await serverConfigContext.deleteOne({serverId}).lean()
         return deletedRecords.deletedCount
     }
 }
