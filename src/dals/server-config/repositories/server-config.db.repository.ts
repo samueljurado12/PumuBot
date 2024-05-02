@@ -5,6 +5,7 @@ import { ServerConfigRepository } from "./server-config.repository";
 
 export const serverConfigDBRepository: ServerConfigRepository = {
     getServerConfig: async (serverId: string) => await serverConfigContext.findOne({ serverId }).lean(),
+
     saveServerConfig: async (serverId: string, channelId?: string, roleId?: string) => {
         const serverConfig = await serverConfigContext.findOne<ServerConfig>({ serverId }) ??
         {
@@ -23,5 +24,10 @@ export const serverConfigDBRepository: ServerConfigRepository = {
             { upsert: true, returnDocument: "after" }
         ).lean();
         return updatedServerConfig;
+    },
+
+    deleteServerConfig: async (serverId: string) => {
+        const deletedRecords = await serverConfigContext.deleteMany({serverId}).lean()
+        return deletedRecords.deletedCount
     }
 }

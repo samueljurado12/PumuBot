@@ -30,5 +30,6 @@ export const serverMockRepository: ServerConfigRepository = {
     getServerConfig: async (serverId: string) => db.serverConfigs.find(c => c.serverId === serverId),
     saveServerConfig: async (serverId: string, channelId?: string | undefined, roleId?: string | undefined) => db.serverConfigs.some(c => c.serverId === serverId) ?
         updateServerConfig(serverId, channelId, roleId) :
-        insertServerConfig(serverId, channelId, roleId)
+        insertServerConfig(serverId, channelId, roleId),
+    deleteServerConfig: async (serverId: string) => db.serverConfigs.splice(db.serverConfigs.findIndex(config => config.serverId === serverId), 1).length
 }

@@ -131,3 +131,5 @@ mongo-data/
 
 # VSCode
 .vscode/
+
+secrets/
